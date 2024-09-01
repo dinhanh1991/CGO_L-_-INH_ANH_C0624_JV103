@@ -1,12 +1,7 @@
 package ss2.bai_tap;
-
-import java.util.Scanner;
-
 public class PrimeNuberLessThan100 {
     public static void main(String[] args) {
-        int number;
-        int fistNumber = 2;
-        Scanner sc = new Scanner(System.in);
+        short fistNumber = 2;
         String string = "các  số nguyên tố nhỏ hơn 100 là: " + fistNumber + "; ";
         while (fistNumber < 100) {
             fistNumber++;
@@ -14,6 +9,7 @@ public class PrimeNuberLessThan100 {
             for (int i = 2; i < Math.sqrt(fistNumber) + 0.1; i++) {
                 if (fistNumber % i == 0) {
                     isPrime = false;
+                    break;
                 }
             }
             if (isPrime) {
