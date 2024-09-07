@@ -1,27 +1,31 @@
 package ss4.bai_tap.stop_watch;
 
+import java.time.LocalTime;
+
 public class StopWatch {
-    private int startTime;
-    private int stopTime;
+    private LocalTime startTime;
+    private LocalTime stopTime;
     public  StopWatch() {
-        this.startTime = java.time.LocalTime.now().getNano();
-        this.stopTime = java.time.LocalTime.now().getNano();
+        this.startTime = LocalTime.now();
     }
-    public int getStartTime() {
+    public LocalTime getStartTime() {
         return this.startTime;
     }
-    public int getStopTime() {
+    public LocalTime getStopTime() {
         return this.stopTime;
     }
-    public int start(){
-        this.startTime = java.time.LocalTime.now().getNano();
-        return this.startTime;
+    public void  start(){
+        this.startTime = LocalTime.now();
+
     }
-    public int stop(){
-        this.stopTime = java.time.LocalTime.now().getNano();
-        return this.stopTime;
+    public void stop(){
+        this.stopTime = LocalTime.now();
+
     }
-    public int getElapsedTime(){
-        return java.time.LocalTime.now().getNano() - this.stopTime;
+    public double getElapsedTime(){
+        return ((this.getStopTime().getHour()-this.getStartTime().getHour())*3600+(this.getStopTime().getMinute()-this.getStartTime().getMinute())*60+(this.getStopTime().getSecond()-this.getStartTime().getSecond()))*1000;
+    }
+    public String displayStopWatch(){
+        return " Start time: "+this.getStartTime()+"\nStop Time: "+this.getStopTime()+"\n Elapsed Time: "+String.format("%.4f",getElapsedTime());
     }
 }

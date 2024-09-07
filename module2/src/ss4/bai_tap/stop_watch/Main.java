@@ -3,10 +3,12 @@ package ss4.bai_tap.stop_watch;
 public class Main {
     public static void main(String[] args) {
         StopWatch stopWatch = new StopWatch();
-        stopWatch.getStartTime();
-        stopWatch.getStopTime();
-        System.out.println(stopWatch.start());
-        System.out.println(stopWatch.stop());
-        System.out.println(stopWatch.getElapsedTime());
+        stopWatch.start();
+        System.out.println("about");
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(i);
+        }
+        stopWatch.stop();
+        System.out.println(stopWatch.displayStopWatch());
     }
 }
