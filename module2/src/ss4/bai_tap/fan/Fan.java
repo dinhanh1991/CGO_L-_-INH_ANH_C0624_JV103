@@ -8,12 +8,7 @@ public class Fan {
     private boolean status = false;
     private double radius=5.0;
     private String color="blue";
-    public Fan() {
-        this.speed = this.low;
-        this.status = false;
-        this.radius = 5;
-        this.color = "blue";
-    }
+    public Fan() {}
     public int getSpeed() {
         return this.speed;
     }
