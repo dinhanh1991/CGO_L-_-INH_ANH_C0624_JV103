@@ -1,9 +1,7 @@
-package ss8.bai_tap.crued_customer.list_customer_maneger;
+package ss8.bai_tap.crued_customer.controller;
 
-import ss8.bai_tap.crued_customer.customer.Customer;
 import ss8.bai_tap.crued_customer.service.CustomerService;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Control {

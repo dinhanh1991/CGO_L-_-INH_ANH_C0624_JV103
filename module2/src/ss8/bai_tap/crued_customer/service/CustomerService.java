@@ -21,13 +21,13 @@ public class CustomerService {
 
     public void createCustomer() {
         System.out.println("Enter customer name: ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         System.out.println("Enter customer address: ");
-        String address = scanner.next();
+        String address = scanner.nextLine();
         System.out.println("Enter customer Id: ");
-        int id = Integer.parseInt(scanner.next()) ;
+        int id = Integer.parseInt(scanner.nextLine()) ;
         System.out.println("Enter customer Birth date (YYYY-MM-DD): ");
-        String birthDate = scanner.next();
+        String birthDate = scanner.nextLine();
             LocalDate dateOfBirth = LocalDate.parse(birthDate);
             Customer newCustomer = new Customer(name, id, address, dateOfBirth);
             for (int i = 0; i < customers.length; i++) {
@@ -56,11 +56,11 @@ public class CustomerService {
         for (Customer c : customers) {
             if (c != null && c.getId() == id) {
                 System.out.println("Enter name to update:");
-                String name = scanner.next();
+                String name = scanner.nextLine();
                 System.out.println("Enter address to update:");
-                String address = scanner.next();
+                String address = scanner.nextLine();
                 System.out.println("Enter Birthday to update (YYYY-MM-DD):");
-                String birthday = scanner.next();
+                String birthday = scanner.nextLine();
                     c.setName(name);
                     c.setAddress(address);
                     c.setDateOfBirth(LocalDate.parse(birthday));
