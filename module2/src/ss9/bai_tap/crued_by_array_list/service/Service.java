@@ -61,8 +61,18 @@ public class Service {
         }
         System.out.println("Id not found");
     }
-
     public void showCustomer() {
         customer.forEach(customer -> System.out.println(customer));
+    }
+    public void lookingForCustomerByName() {
+        System.out.println("Enter customer name: ");
+        String name = scanner.nextLine();
+        for (int i = 0; i < customer.size(); i++) {
+            if (customer.get(i).getName().equals(name)) {
+                System.out.println(customer.get(i));
+                return;
+            }
+        }
+        System.out.println("Name not found");
     }
 }
