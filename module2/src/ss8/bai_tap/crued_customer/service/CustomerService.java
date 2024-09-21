@@ -8,11 +8,13 @@ import java.util.Scanner;
 
 public class CustomerService {
     private static Customer[] customers = new Customer[100];
-    private static Scanner scanner = new Scanner(System.in); // Sử dụng chung một Scanner
+    private static Scanner scanner = new Scanner(System.in);
 
     static {
-        customers[0] = new Customer("Anh", 123, "Ha Noi", LocalDate.of(1992, 2, 12));
-        customers[1] = new Customer("Hạnh", 456, "Thái Bình", LocalDate.of(1991, 4, 24));
+        customers[0] = new Customer("Anh", 123, "Ha Noi",
+                LocalDate.of(1992, 2, 12));
+        customers[1] = new Customer("Hạnh", 456, "Thái Bình",
+                LocalDate.of(1991, 4, 24));
     }
 
     public Customer[] getAllCustomers() {
