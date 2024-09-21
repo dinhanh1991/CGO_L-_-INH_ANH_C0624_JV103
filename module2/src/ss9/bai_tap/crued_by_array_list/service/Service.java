@@ -63,8 +63,6 @@ public class Service {
     }
 
     public void showCustomer() {
-        for (Customer c : customer) {
-            System.out.println(c.toString());
-        }
+        customer.forEach(customer -> System.out.println(customer));
     }
 }
