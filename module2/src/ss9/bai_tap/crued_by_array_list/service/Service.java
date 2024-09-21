@@ -54,9 +54,7 @@ public class Service {
         LocalDate dateOfBirth = LocalDate.parse(birthDate);
         for (int i = 0; i < customer.size(); i++) {
             if (customer.get(i).getId() == id) {
-                customer.get(i).setName(name);
-                customer.get(i).setAddress(address);
-                customer.get(i).setDateOfBirth(dateOfBirth);
+                customer.set(i, new Customer(name, id, address, dateOfBirth));
                 System.out.println("Updated customer");
                 return;
             }
