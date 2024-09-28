@@ -4,6 +4,7 @@ public class Product {
     private String name;
     private int price;
     private String id;
+
     public Product(String name, int price, String id) {
         this.name = name;
         this.price = price;

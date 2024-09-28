@@ -5,11 +5,13 @@ import ss10.bai_tap.practice_array_list.service.ProductManager;
 import java.util.Scanner;
 
 public class Controller {
-    private static ProductManager productManager = new ProductManager();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final ProductManager productManager = new ProductManager();
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-       display();
+        display();
     }
+
     public static void display() {
         int choice;
         do {
@@ -18,7 +20,7 @@ public class Controller {
                     "2.Update Product\n" +
                     "3.Delete Product\n" +
                     "4.Display Product\n" +
-                    "5.Search for id\n"+
+                    "5.Search for id\n" +
                     "6.Arrange Product for price\n" +
                     "0.Exit");
             System.out.print("Enter your choice: ");
@@ -45,10 +47,10 @@ public class Controller {
                 case 5:
                     productManager.searchProduct();
                     break;
-                    case 6:
-                        productManager.arrangeProducts();
-                        System.out.println("List Customer after arranging :");
-                        productManager.displayProducts();
+                case 6:
+                    productManager.arrangeProducts();
+                    System.out.println("List Customer after arranging :");
+                    productManager.displayProducts();
                 case 0:
                     System.out.println("Goodbye!");
                     System.out.println("Exiting....");
