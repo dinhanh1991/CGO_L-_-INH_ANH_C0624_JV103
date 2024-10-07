@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
 public class FileCopy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -21,17 +20,13 @@ public class FileCopy {
         }
         try (FileReader reader = new FileReader(sourceFile);
              FileWriter writer = new FileWriter(targetFile)) {
-
             int characterCount = 0;
             int charData;
-
             while ((charData = reader.read()) != -1) {
                 writer.write(charData);
                 characterCount++;
             }
-
             System.out.println("Copy Success. number of character copied: " + characterCount);
-
         } catch (IOException e) {
             System.out.println("An error occurred while copying : " + e.getMessage());
         }
