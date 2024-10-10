@@ -1,6 +1,5 @@
 package add_excercise.management_powder_customer.control;
 
-import add_excercise.management_powder_customer.model.Customer;
 import add_excercise.management_powder_customer.service.CustomerService;
 import add_excercise.management_powder_customer.service.InvoiceService;
 
@@ -12,10 +11,10 @@ public class Controller {
     private  Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        displayCustomerAndInvoice();
     }
 
-    public static void displayAllVehicles() {
+    public static void displayCustomerAndInvoice() {
         int choice;
         do {
             System.out.println("Menu: \n" +
@@ -23,8 +22,8 @@ public class Controller {
                     "2.Display Customer\n" +
                     "3.Search for name\n" +
                     "4.Add Invoice\n" +
-                    "5.Display Invoice\n" +
-                    "6.Update Invoice\n" +
+                    "5.Update Invoice\n" +
+                    "6.Display Invoice\n" +
                     "0.Exit");
             System.out.print("Enter your choice: ");
             choice = new Scanner(System.in).nextInt();
@@ -39,11 +38,13 @@ public class Controller {
                     customerService.searchCustomer();
                     break;
                 case 4:
-               //     invoiceService.addInvoice();
+                  invoiceService.addInvoice();
                     break;
                 case 5:
+                    invoiceService.editInvoice();
                     break;
                 case 6:
+                    invoiceService.showInvoices();
                     break;
                 case 7:
                     break;

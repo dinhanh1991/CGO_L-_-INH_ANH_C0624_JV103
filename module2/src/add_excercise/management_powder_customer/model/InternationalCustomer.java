@@ -17,6 +17,11 @@ public class InternationalCustomer extends Customer {
     }
 
     @Override
+    public String writeInformation() {
+        return getId() + "," + getName() + "," + getNationality();
+    }
+
+    @Override
     public String toString() {
         return "InternationalCustomer{" +
                 "Customer id='" + getId() + '\'' +

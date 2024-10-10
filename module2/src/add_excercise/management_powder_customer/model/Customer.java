@@ -24,5 +24,6 @@ public abstract class Customer {
     public void setId(String id) {
         this.id = id;
     }
+    public abstract String writeInformation();
     public abstract String toString();
 }

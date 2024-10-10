@@ -24,6 +24,9 @@ public class DomesticCustomer extends Customer {
     public void setConsumption(int consumption) {
         this.consumption = consumption;
     }
+    public String writeInformation(){
+        return getId()+","+getName()+","+typeOfCustomer+","+consumption;
+    }
 
     @Override
     public String toString() {

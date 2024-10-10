@@ -4,42 +4,74 @@ import java.time.LocalDate;
 
 public class Invoice {
     private String idInvoice;
+    private String idCustomer;
     private LocalDate invoiceDate;
-    private Customer customer;
     private int usage;
     private double unitPrice;
     private double amount;
-    public Invoice() {}
-    public Invoice(String idInvoice, Customer customer, LocalDate invoiceDate, int usage, double unitPrice) {
+    public Invoice(String idInvoice,String idCustomer,LocalDate invoiceDate,
+                   int usage, double unitPrice, double amount) {
         this.idInvoice = idInvoice;
-        this.customer = customer;
+        this.idCustomer = idCustomer;
         this.invoiceDate = invoiceDate;
         this.usage = usage;
         this.unitPrice = unitPrice;
-        this.getAmount();
+        this.amount = amount;
     }
+
+    public String getIdInvoice() {
+        return idInvoice;
+    }
+
+    public void setIdInvoice(String idInvoice) {
+        this.idInvoice = idInvoice;
+    }
+
+    public String getIdCustomer() {
+        return idCustomer;
+    }
+
+    public void setIdCustomer(String idCustomer) {
+        this.idCustomer = idCustomer;
+    }
+
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(LocalDate invoiceDate) {
+        this.invoiceDate = invoiceDate;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public double getAmount() {
-        if(customer instanceof DomesticCustomer){
-            DomesticCustomer domesticCustomer = (DomesticCustomer)customer;
-            if(usage<=domesticCustomer.getConsumption()){
-                amount=unitPrice*usage;
-            }else {
-                int remainder =usage-domesticCustomer.getConsumption();
-                amount =domesticCustomer.getConsumption()*unitPrice+remainder*unitPrice*2.5;
-            }
-        } else if (customer instanceof InternationalCustomer) {
-            amount=unitPrice*usage;
-        }
         return amount;
     }
 
-    @Override
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public String toString() {
         return "Invoice{" +
                 "idInvoice='" + idInvoice + '\'' +
-                ", idCustomer='" + customer.getId() + '\'' +
+                ", idCustomer='" + idCustomer + '\'' +
                 ", invoiceDate=" + invoiceDate +
-                ", customer=" + customer +
                 ", usage=" + usage +
                 ", unitPrice=" + unitPrice +
                 ", amount=" + amount +
