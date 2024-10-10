@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InvoiceService {
-    private final String invoice_path = "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
-    private final String customerList_path = "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
+    private  static int idCount =1;
+    private final String invoice_path =
+            "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
+    private final String customerList_path =
+            "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
     private final CustomerService customerService = new CustomerService();
     private final Scanner scanner = new Scanner(System.in);
-    private int idcount = 1;
 
     public void addInvoice() {
         if (!new File(customerList_path).exists()) {
@@ -32,7 +34,8 @@ public class InvoiceService {
         double amount = calculateAmount(idCustomer, usage, unitPrice);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(invoice_path, true))) {
-            bw.write(String.join(",", "MHD" + idcount++, idCustomer, date, String.valueOf(usage), String.valueOf(unitPrice), String.valueOf(amount)));
+            bw.write(String.join(",", "MHD" + idCount++, idCustomer, date,
+                    String.valueOf(usage), String.valueOf(unitPrice), String.valueOf(amount)));
             bw.newLine();
             System.out.println("Invoice added");
         } catch (IOException e) {
@@ -109,7 +112,8 @@ public class InvoiceService {
         return null;
     }
 
-    private void displayInvoiceDetails(List<String[]> invoiceList, String idInvoice, String customerName) {
+    private void displayInvoiceDetails(
+            List<String[]> invoiceList, String idInvoice, String customerName) {
         for (String[] invoice : invoiceList) {
             if (invoice[0].equals(idInvoice)) {
                 System.out.println("Invoice id: " + invoice[0] + "\nCustomer Name: " + customerName +
@@ -142,7 +146,7 @@ public class InvoiceService {
     }
 
     public double calculateAmount(String id, int usage, double unitPrice) {
-        if (id.startsWith("VNC-")) {
+        if (id.charAt(0)=='V') {
             for (String[] customer : readFile(customerList_path)) {
                 if (customer[0].equals(id)) {
                     int quota = Integer.parseInt(customer[3]);
@@ -153,7 +157,7 @@ public class InvoiceService {
                     }
                 }
             }
-        } else if (id.startsWith("FRC-")) {
+        } else if (id.charAt(0)=='F') {
             return usage * unitPrice;
         }
         return 0;
