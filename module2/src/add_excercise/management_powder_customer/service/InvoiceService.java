@@ -5,6 +5,7 @@ import add_excercise.management_powder_customer.model.Invoice;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +42,7 @@ public class InvoiceService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        checkQuota(idCustomer, usage, unitPrice);
     }
 
     public void editInvoice() {
@@ -149,17 +151,22 @@ public class InvoiceService {
         if (id.charAt(0)=='V') {
             for (String[] customer : readFile(customerList_path)) {
                 if (customer[0].equals(id)) {
-                    int quota = Integer.parseInt(customer[3]);
-                    if (usage<=quota){
-                        return  usage * unitPrice;
-                    }else {
-                        return quota * unitPrice + (usage - quota) * unitPrice * 2.5;
-                    }
+                        int quota = Integer.parseInt(customer[3]);
+                        if (usage<=quota){
+                            return  usage * unitPrice;
+                        }else {
+                            return quota * unitPrice + (usage - quota) * unitPrice * 2.5;
+                        }
                 }
             }
         } else if (id.charAt(0)=='F') {
             return usage * unitPrice;
         }
         return 0;
+    }
+    public void checkQuota(String id, int usage, double unitPrice){
+        for (String[] customer : readFile(customerList_path)) {
+            System.out.println(Integer.parseInt(customer[3]));
+        }
     }
 }

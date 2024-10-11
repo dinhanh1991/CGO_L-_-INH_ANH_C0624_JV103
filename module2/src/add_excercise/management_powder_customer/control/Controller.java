@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Controller {
     private static final CustomerService customerService = new CustomerService();
     private static final InvoiceService invoiceService = new InvoiceService();
-    private  Scanner scanner = new Scanner(System.in);
+    private static   Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         displayCustomerAndInvoice();
@@ -26,7 +26,7 @@ public class Controller {
                     "6.Display Invoice\n" +
                     "0.Exit");
             System.out.print("Enter your choice: ");
-            choice = new Scanner(System.in).nextInt();
+            choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     customerService.addCustomer();
