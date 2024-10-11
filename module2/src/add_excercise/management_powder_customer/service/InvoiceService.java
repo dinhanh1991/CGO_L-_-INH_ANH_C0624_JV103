@@ -1,48 +1,34 @@
 package add_excercise.management_powder_customer.service;
 
-import add_excercise.management_powder_customer.model.Invoice;
-
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class InvoiceService {
-    private  static int idCount =1;
+    private static int idCount;
     private final String invoice_path =
             "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
-    private final String customerList_path =
-            "module2/src/add_excercise/management_powder_customer/cvs_file/invoice";
+
+    static {
+        loadIdCount();
+    }
     private final CustomerService customerService = new CustomerService();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void addInvoice() {
-        if (!new File(customerList_path).exists()) {
-            System.out.println("No customers available. Please add customers first.");
-            return;
-        }
-        System.out.println("Enter customer id followed by customer list:");
-        customerService.showCustomers();
-        String idCustomer = scanner.nextLine();
-        System.out.println("Enter Usage ");
-        int usage = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter unit price");
-        double unitPrice = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter date");
-        String date = scanner.nextLine();
-        double amount = calculateAmount(idCustomer, usage, unitPrice);
+    private final String customerList_path =
+            "module2/src/add_excercise/management_powder_customer/cvs_file/customer";
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(invoice_path, true))) {
-            bw.write(String.join(",", "MHD" + idCount++, idCustomer, date,
-                    String.valueOf(usage), String.valueOf(unitPrice), String.valueOf(amount)));
-            bw.newLine();
-            System.out.println("Invoice added");
+    public static int loadIdCount() {
+        try (BufferedReader br = new BufferedReader(new FileReader("module2/src/add_excercise/management_powder_customer/cvs_file/id_count"))) {
+            String line = br.readLine();
+            if (line != null) {
+                return Integer.parseInt(line);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            return 1;
         }
-//        checkQuota(idCustomer, usage, unitPrice);
+        return 1;
     }
 
     public void editInvoice() {
@@ -168,5 +154,40 @@ public class InvoiceService {
         for (String[] customer : readFile(customerList_path)) {
             System.out.println(Integer.parseInt(customer[3]));
         }
+    }
+
+    public static void saveIdCount() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("module2/src/add_excercise/management_powder_customer/cvs_file/id_count"))) {
+            bw.write(String.valueOf(idCount));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addInvoice() {
+        if (!new File(customerList_path).exists()) {
+            System.out.println("No customers available. Please add customers first.");
+            return;
+        }
+        System.out.println("Enter customer id followed by customer list:");
+        customerService.showCustomers();
+        String idCustomer = scanner.nextLine();
+        System.out.println("Enter Usage ");
+        int usage = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter unit price");
+        double unitPrice = Double.parseDouble(scanner.nextLine());
+        System.out.println("Enter date");
+        String date = scanner.nextLine();
+        double amount = calculateAmount(idCustomer, usage, unitPrice);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(invoice_path, true))) {
+            bw.write(String.join(",", "MHD" + idCount++, idCustomer, date,
+                    String.valueOf(usage), String.valueOf(unitPrice), String.valueOf(amount)));
+            bw.newLine();
+            System.out.println("Invoice added");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        saveIdCount();
     }
 }
