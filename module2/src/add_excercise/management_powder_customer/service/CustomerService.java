@@ -23,7 +23,7 @@ public class CustomerService {
                 "Enter Your option: \n" +
                         "1.Vietnamese Customer\n" +
                         "2.Foreigner Customer");
-        int option = input.nextInt();
+        int option = Integer.parseInt(input.nextLine());
         switch (option) {
             case 1:
                 System.out.println("Enter the ID customer in the format VNC-xxxxx. ");
