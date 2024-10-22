@@ -19,6 +19,12 @@ public class StudentService {
         if (!validationUtils.isFileExists(STUDENT_PATH)) {
             return;
         }
+        String className = inputData.getInput("Enter Class name: ");
+        if (validationUtils.isStudentExisting(className)) {
+            System.out.println("Student already exist in Classroom"+className+"/n" +
+                    "You need to re-enter the class name.");
+            return;
+        }
         String studentId = inputData.getInput("Enter student id: ");
         String studentName = inputData.getInput("Enter student name: ");
         String studentBirthDate = inputData.getInput("Enter student birth date: ");
@@ -29,7 +35,6 @@ public class StudentService {
                         "Please enter a valid date.");
             }
         }
-        String className = inputData.getInput("Enter Class name: ");
         double score = Double.parseDouble(inputData.getInput("Enter Score of student: "));
         String position = inputData.getInput("Enter student position: ");
         String email;

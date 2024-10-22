@@ -152,5 +152,4 @@ public class CvsInputAndOutput {
             System.out.println("Write file error."+e.getMessage());
         }
     }
-
 }

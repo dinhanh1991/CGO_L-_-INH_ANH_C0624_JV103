@@ -1,5 +1,6 @@
 package case_study.utils;
 
+import case_study.model.Student;
 import case_study.model.Teacher;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
 public class ValidationUtils {
     private final CvsInputAndOutput cvsInputAndOutput = new CvsInputAndOutput();
     private final String TEACHER_PATH = "module2/src/case_study/cvs_file/teachers";
+    private final String STUDENT_PATH = "module2/src/case_study/cvs_file/student";
     public boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(emailRegex);
@@ -48,6 +50,15 @@ public class ValidationUtils {
         List<Teacher> teacherList = cvsInputAndOutput.readFilTeacher(TEACHER_PATH);
         for (Teacher teacher : teacherList) {
             if (teacher.getClass().equals(className)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isStudentExisting(String className){
+        List<Student> studentsList = cvsInputAndOutput.readFileStudent(STUDENT_PATH);
+        for (Student student : studentsList) {
+            if (student.getClass().equals(className)) {
                 return true;
             }
         }
