@@ -1,13 +1,29 @@
 package case_study.model;
 
 public class Student extends Person {
-    private final String className;
-    private final double agvScore;
+    private  String className;
+    private double agvScore;
     public Student(String id, String name, String birthDate, String position, String email,
                    String phoneNumber, String className, double agvScore) {
         super(id, name, birthDate, position, email, phoneNumber);
         this.className = className;
         this.agvScore = agvScore;
+    }
+
+    public void setAgvScore(double agvScore) {
+        this.agvScore = agvScore;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public double getAgvScore() {
+        return agvScore;
     }
 
     public String getInformation() {
@@ -18,9 +34,6 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "gradeLevel='" + className + '\'' +
-                ", agvScore=" + agvScore +
-                "} " + super.toString();
+        return  super.toString()+"\t"+className+"\t"+agvScore+"\t";
     }
 }

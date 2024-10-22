@@ -6,7 +6,7 @@ import case_study.service.TeacherService;
 
 import java.util.Scanner;
 
-public class SchoolController {
+public class HighSchoolController {
     private static final StudentService studentService = new StudentService();
     private static final TeacherService teacherService = new TeacherService();
     private static final ClassroomService classroomService = new ClassroomService();

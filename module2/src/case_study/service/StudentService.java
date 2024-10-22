@@ -1,6 +1,8 @@
 package case_study.service;
 
+import case_study.model.Classroom;
 import case_study.model.Student;
+import case_study.model.Teacher;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -12,6 +14,8 @@ import java.util.regex.Pattern;
 
 public class StudentService {
     private final String STUDENT_PATH = "module2/src/case_study/cvs_file/student";
+    private final String CLASS_PATH = "module2/src/case_study/cvs_file/classroom";
+    private final List<Classroom>classrooms=loadClassroomList(CLASS_PATH);
     private final Scanner scanner = new Scanner(System.in);
 
     public void getFunctionForStudent() {
@@ -82,29 +86,35 @@ public class StudentService {
         } while (!isValidPhoneNumber(phoneNumber));
         Student student = new Student(studentId, studentName, studentBirthDate, position,
                 email, phoneNumber, className, score);
-        String[] std = student.getInformation().split(",");
-        List<String[]> data = new ArrayList();
-        data.add(std);
+        List<Student> data = new ArrayList();
+        data.add(student);
         writeFile(STUDENT_PATH, data, true);
         System.out.println("Student created successfully.");
         readStudent();
     }
 
     public void readStudent() {
-        List<String[]> studentList = readFile(STUDENT_PATH);
-        for (String[] str : studentList) {
-            System.out.println(Arrays.toString(str));
+        List<Student> studentList = readFile(STUDENT_PATH);
+        for (Student str : studentList) {
+            System.out.println(str.getInformation());
         }
     }
 
     public void updateStudent() {
         System.out.print("Enter student ID to update: ");
         String studentId = scanner.nextLine();
-        List<String[]> students = readFile(STUDENT_PATH);
+        List<Student> students = readFile(STUDENT_PATH);
         boolean found = false;
-        for (String[] student : students) {
-            if (student[0].equals(studentId)) {
-                System.out.println("Student found: " + Arrays.toString(student));
+        for (Student student : students) {
+            if (student.getId().equals(studentId)) {
+                for(Classroom classroom : classrooms) {
+                    if (classroom.getNameClass().equals(student.getClassName())) {
+                        System.out.println("This student is already assigned as the student list of class:." +classroom.getNameClass()+
+                                " If you want to change it, you must update the class list to avoid data conflicts");
+                        return;
+                    }
+                }
+                System.out.println("Student found: " );
                 String studentName = getInput("Enter new student name (or press Enter to skip): ");
                 String studentBirthDate;
                 do {
@@ -130,13 +140,14 @@ public class StudentService {
                 } while (isValidPhoneNumber(phoneNumber));
                 String className = getInput("Enter new class name (or press Enter to skip): ");
                 String scoreStr = getInput("Enter new score (or press Enter to skip): ");
-                student[1] = studentName;
-                student[2] = studentBirthDate;
-                student[3] = position;
-                student[4] = email;
-                student[5] = phoneNumber;
-                student[6] = className;
-                student[7] = scoreStr;
+                student.setId(studentId);
+                student.setName(studentName);
+                student.setBirthDate(studentBirthDate);
+                student.setPosition(position);
+                student.setEmail(email);
+                student.setPhoneNumber(phoneNumber);
+                student.setClassName(className);
+                student.setAgvScore(Double.parseDouble(scoreStr));
                 found = true;
                 break;
             }
@@ -154,8 +165,8 @@ public class StudentService {
         System.out.print("Enter student ID to delete: ");
         String studentId = scanner.nextLine();
 
-        List<String[]> students = readFile(STUDENT_PATH);
-        boolean removed = students.removeIf(student -> student[0].equals(studentId));
+        List<Student> students = readFile(STUDENT_PATH);
+        boolean removed = students.removeIf(student -> student.getId().equals(studentId));
 
         if (removed) {
             writeFile(STUDENT_PATH, students, false);
@@ -168,12 +179,12 @@ public class StudentService {
     public void findStudent() {
         System.out.print("Enter student ID to search: ");
         String studentId = scanner.nextLine();
-        List<String[]> students = readFile(STUDENT_PATH);
+        List<Student> students = readFile(STUDENT_PATH);
         boolean found = false;
-        for (String[] student : students) {
-            if (student[0].equals(studentId)) {
+        for (Student student : students) {
+            if (student.getId().equals(studentId)) {
                 System.out.println("Student found: " + student);
-                double score = Double.parseDouble(student[7]);
+                double score = student.getAgvScore();
                 evaluateAcademicPerformance(score);
                 found = true;
                 break;
@@ -187,17 +198,11 @@ public class StudentService {
     }
 
     public void arrangeStudent() {
-        List<String[]> students = readFile(STUDENT_PATH);
-        Collections.sort(students, new Comparator<String[]>() {
-            public int compare(String[] o1, String[] o2) {
-                double score1 = Double.parseDouble(o1[7]);
-                double score2 = Double.parseDouble(o2[7]);
-                return Double.compare(score1, score2);
-            }
-        });
+        List<Student> students = readFile(STUDENT_PATH);
+        Collections.sort(students,Comparator.comparingDouble(Student::getAgvScore));
         System.out.println("List arranged: ");
-        for (String[] student : students) {
-            System.out.println(Arrays.toString(student));
+        for (Student student : students) {
+            System.out.println(student.getInformation());
         }
     }
 
@@ -214,27 +219,36 @@ public class StudentService {
         return true;
     }
 
-    private List<String[]> readFile(String path) {
-        List<String[]> list = new ArrayList<>();
+    public List<Student> readFile(String path) {
+        List<Student> Students = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            Student tempStudent = null;
             String line;
+            br.readLine();
             while ((line = br.readLine()) != null) {
-                list.add(line.split(","));
+                String[] data = line.trim().split(",");
+                tempStudent=new Student(data[0],data[1],data[2],data[3],data[4],data[5],data[6],Double.parseDouble(data[7]));
+                Students.add(tempStudent);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading file: " + e.getMessage());;
         }
-        return list;
+        return Students;
     }
 
-    void writeFile(String path, List<String[]> data, boolean append) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, append))) {
-            for (String[] str : data) {
-                bw.write(String.join(",", str));
+    public void writeFile(String path, List<Student> data, boolean append) {
+        File file = new File(path);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, append))) {
+            if (!file.exists()||file.length()==0) {
+                bw.write("Id,Name,Age,Birthday,Position,Email,Phone Number,Class,Score");
+                bw.newLine();
+            }
+            for (Student str : data) {
+                bw.write(str.getInformation());
                 bw.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Write file error"+e.getMessage());;
         }
     }
 
@@ -280,5 +294,56 @@ public class StudentService {
         } else {
             System.out.println("Repeat the grade.");
         }
+    }
+    private List<Classroom> loadClassroomList(String path) {
+        List<Classroom> classroomList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            br.readLine();
+            Classroom currentClassroom = null;
+            String className = null;
+            Teacher homeroomTeacher = null;
+            List<Student> studentList = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("Class Name:")) {
+                    if (currentClassroom != null) {
+                        currentClassroom.setStudents(studentList);
+                        classroomList.add(currentClassroom);
+                    }
+                    className = line.split(":")[1].trim();
+                    studentList = new ArrayList<>();
+                    currentClassroom = new Classroom(className,homeroomTeacher,studentList);
+                }
+                else if (line.startsWith("Homeroom Teacher:")) {
+                    String[] teacherData = line.split(":")[1].trim().split("\t");
+                    homeroomTeacher = new Teacher(
+                            teacherData[0], teacherData[1], teacherData[2], teacherData[3],
+                            teacherData[4], teacherData[5], teacherData[6], teacherData[7]
+                    );
+                    if (currentClassroom != null) {
+                        currentClassroom.setTeacher(homeroomTeacher);
+                    }
+                }
+                else if (line.startsWith("Size") || line.startsWith("Classification:") || line.startsWith("Students:")) {
+                    continue;
+                }
+                else if (!line.isEmpty()) {
+                    String[] studentData = line.split("\t");
+                    Student student = new Student(
+                            studentData[0], studentData[1], studentData[2], studentData[3],
+                            studentData[4], studentData[5], studentData[6], Double.parseDouble(studentData[7])
+                    );
+                    studentList.add(student);
+                }
+            }
+            if (currentClassroom != null) {
+                currentClassroom.setStudents(studentList);
+                classroomList.add(currentClassroom);
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return classroomList;
     }
 }

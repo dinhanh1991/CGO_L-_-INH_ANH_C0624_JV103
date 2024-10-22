@@ -14,6 +14,7 @@ public abstract class Person {
         this.birthDate = birthDate;
         this.position = position;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() {
@@ -68,13 +69,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", position='" + position + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return id + "\t" + name + "\t" + birthDate + "\t" + position + "\t" + email + "\t" + phoneNumber + "\t";
     }
 }

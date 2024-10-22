@@ -1,2 +1,7 @@
-Id,Name,Age,Birthday,Major,Score
-001,Ha Van Hanh,24/04/1998,Nomal,hanhhv@gmail.com,null,10A1,7.5
+Id,Name,Age,Birthday,Position,Email,Phone Number,Class,Score
+10A1_001,Ha Van Hanh,24/04/1998,Nomal,hanhhv@gmail.com,null,10A1,7.5
+10A2_002,Nguyễn Trần Lan Chi,15/08/2001,Semeter,chinguyen@gmail.com,0234516789,10A2,9.2
+10A1_003,Đặng Lộc Thành,09/09/2002,nomal,0227325957,thanhdl02@gmail.com,10A1,6.2
+10A1_002,Vũ Thanh Biện,09/09/2002,Semeter,0373456778,bienvt02@gmail.com,10A1,6.2
+10A2_001,Lê Đình Anh,15/02/2002,nomal,anhld93@wru.vn,0965432178,10A2,7.0
+10A2-003,Mục Uển Thanh,31/10/2002,mỹ nhân,uyenthanh@gmail.com,0123456789,10A2,8.7
