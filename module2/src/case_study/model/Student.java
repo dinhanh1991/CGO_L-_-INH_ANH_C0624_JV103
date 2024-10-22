@@ -25,6 +25,25 @@ public class Student extends Person {
     public double getAgvScore() {
         return agvScore;
     }
+    public void evaluateAcademicPerformance(double score) {
+        if (score < 0 || score > 10) {
+            System.out.println("Score is invalid.check again");
+            return;
+        }
+        if (score > 8.5 && score <= 10) {
+            System.out.println("Outstanding and awarded a scholarship of 120% of tuition fees.");
+        } else if (score > 8.0) {
+            System.out.println("Good and awarded a scholarship of 100% of tuition fees");
+        } else if (score > 6.5) {
+            System.out.println("Fair and awarded a scholarship of 70% of tuition fees");
+        } else if (score > 5.0) {
+            System.out.println("Those with average performance need to strive to improve themselves.");
+        } else if (score > 4.5) {
+            System.out.println("Must retake the exam to improve grades.");
+        } else {
+            System.out.println("Repeat the grade.");
+        }
+    }
 
     public String getInformation() {
         return getId() + "," + getName() + "," + getBirthDate() +

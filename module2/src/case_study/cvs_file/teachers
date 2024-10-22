@@ -1,5 +1,5 @@
 Id,Name,Birthday,position,email,phone number,Subject,Homeroom Class
 T01,Hoàng Thị Huyene,22/02/1991,,huyenhoang12@gmail.com,null,Math,10A1
 T02,Hồ Sỹ Phúc,12/02/1985,Head of Departerment,phuchs@gmail.com,null,Physic,10A2
-T03,Hoàng Văn Thịnh,25/07/1974,Principal,hoangvanthinh@gmail.com,null,Literature,12C6
 T005,Nguyễn Thành Công,16/09/1991,,cong.nguyen@codegym.vn,0234567890,It,null
+T003,Hoàng Văn Thịnh,25/05/1970,Principal,thinhhoangvan@gmail.com,0224345762,Literature,12C6

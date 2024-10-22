@@ -1,15 +1,11 @@
 package case_study.controller;
 
-import case_study.service.ClassroomService;
-import case_study.service.StudentService;
-import case_study.service.TeacherService;
+import case_study.View.SchoolView;
 
 import java.util.Scanner;
 
 public class HighSchoolController {
-    private static final StudentService studentService = new StudentService();
-    private static final TeacherService teacherService = new TeacherService();
-    private static final ClassroomService classroomService = new ClassroomService();
+    private static final SchoolView schoolView = new SchoolView();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -28,13 +24,13 @@ public class HighSchoolController {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    studentService.getFunctionForStudent();
+                    schoolView.viewFunctionForStudents();
                     break;
                 case 2:
-                    teacherService.getFunctionForTeachers();
+                    schoolView.viewFunctionForTeachers();
                     break;
                 case 3:
-                    classroomService.getFunctionForClassroom();
+                    schoolView.viewFunctionForClassrooms();
                     break;
                 case 0:
                     System.out.println("Goodbye!");
