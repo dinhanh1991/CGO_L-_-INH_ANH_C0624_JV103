@@ -5,7 +5,11 @@ import case_study.model.Student;
 import case_study.utils.CvsInputAndOutput;
 import case_study.utils.InputData;
 import case_study.utils.ValidationUtils;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
 public class StudentService {
     private final String STUDENT_PATH = "module2/src/case_study/cvs_file/student";
@@ -22,7 +26,9 @@ public class StudentService {
         String className = inputData.getInput("Enter Class name: ");
         if (validationUtils.isStudentExisting(className)) {
             System.out.println("Student already exist in Classroom"+className+"/n" +
-                    "You need to re-enter the class name.");
+                    "You need to re-enter the class name.You must update the class list to avoid class data conflicts." +
+                    "After existing this interface:\n" +
+                    "You select 3 and then 4 to add new student in class");
             return;
         }
         String studentId = inputData.getInput("Enter student id: ");
@@ -78,7 +84,9 @@ public class StudentService {
                 for(Classroom classroom : classrooms) {
                     if (classroom.getNameClass().equals(student.getClassName())) {
                         System.out.println("This student is already assigned as the student list of class:." +classroom.getNameClass()+
-                                " If you want to change it, you must update the class list to avoid data conflicts");
+                                " If you want to change it, you must update the class list to avoid class data conflicts\n" +
+                                "After existing this interface:\n" +
+                                "You select 3 and then 3 to add new student in class");
                         return;
                     }
                 }
@@ -122,8 +130,20 @@ public class StudentService {
         }
 
         if (found) {
-            cvsInputAndOutput.writeFileStudent(STUDENT_PATH, students, false);
-            System.out.println("Student updated successfully.");
+            String confirm="";
+            while (!confirm.equals("yes") && !confirm.equals("no")) {
+                System.out.println("You must select \"Yes or No\"");
+                System.out.println("Select \"Yes or No\"");
+                confirm = scanner.nextLine();
+            }
+            InputData.confirm(confirm, () -> {
+                        cvsInputAndOutput.writeFileStudent(STUDENT_PATH, students, false);
+                        System.out.println("Student updated successfully.");
+                        readStudent();
+                    },
+                    () -> {
+                        System.out.println("You cancelled the update.");
+                    });
         } else {
             System.out.println("Student with ID " + studentId + " not found.");
         }
@@ -137,13 +157,24 @@ public class StudentService {
         boolean removed = students.removeIf(student -> student.getId().equals(studentId));
 
         if (removed) {
-            cvsInputAndOutput.writeFileStudent(STUDENT_PATH, students, false);
-            System.out.println("Student with ID " + studentId + " has been deleted.");
+            String confirm="";
+            while (!confirm.equals("yes") && !confirm.equals("no")) {
+                System.out.println("You must select \"Yes or No\"");
+                System.out.println("Select \"Yes or No\"");
+                confirm = scanner.nextLine();
+            }
+            InputData.confirm(confirm, () -> {
+                        cvsInputAndOutput.writeFileStudent(STUDENT_PATH, students, false);
+                        System.out.println("Student updated successfully.");
+                        readStudent();
+                    },
+                    () -> {
+                        System.out.println("You cancelled the delete.");
+                    });
         } else {
             System.out.println("Student with ID " + studentId + " not found.");
         }
     }
-
     public void findStudent() {
         System.out.print("Enter student ID to search: ");
         String studentId = scanner.nextLine();

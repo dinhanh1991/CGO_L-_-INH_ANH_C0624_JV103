@@ -1,0 +1,18 @@
+Class name, homeroom teacher,size, classification,student list:...
+Class Name: 10A1
+Homeroom Teacher: T01	Hoàng Thị Huyene	22/02/1991		huyenhoang12@gmail.com	null		Math	10A1
+Size: 3
+Classification: Excellent: 0 Good: 0 Fair: 1 Average: 2 Bad : 0
+Students:
+10A1_001	Ha Van Hanh	24/04/1998	Nomal	hanhhv@gmail.com	null	10A1	7.5
+10A1_003	Đặng Lộc Thành	09/09/2002	nomal	0227325957	thanhdl02@gmail.com	10A1	6.2
+10A1_002	Vũ Thanh Biện	09/09/2002	Semeter	0373456778	bienvt02@gmail.com	10A1	6.2
+
+Class Name: 12C6
+Homeroom Teacher: T003	Hoàng Văn Thịnh	25/05/1970	Principal	thinhhoangvan@gmail.com	0224345762		Literature	12C6
+Size: 2
+Classification: Excellent: 1 Good: 1 Fair: 0 Average: 0 Bad : 0
+Students:
+12C6-001	Nguyễn Thị Loan	26/05/2000	Treasurẻ	loannguyen@gmail.com	0223582655	12C6	9.0
+12C6-002	Cam Bảo Bảo	24/04/2000	Monitor	baobao@gmail.com	0237562873	12C6	8.2
+

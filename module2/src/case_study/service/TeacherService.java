@@ -74,7 +74,7 @@ public class TeacherService {
                 for (Classroom classroom : classrooms) {
                     if (classroom.getTeacher().getId().equals(teacherId)) {
                         System.out.println("This teacher is already assigned as the homeroom teacher of class:." +classroom.getNameClass()+
-                                " If you want to change it, you must update the class list to avoid data conflicts");
+                                " If you want to change it, you must update the class list to avoid class data conflicts");
                         return;
                     }
                 }
@@ -104,10 +104,22 @@ public class TeacherService {
                 teacher.setPhoneNumber(phoneNumber);
                 teacher.setSubject(subject);
                 teacher.setPosition(teacherClass);
-                cvsInputAndOutput.writeFileTeacher(TEACHER_PATH, teacherList, false);
-                System.out.println("Teacher updated successfully.");
-                readTeacher();
-                return;
+                System.out.println("Are you sure:\n" +
+                        "\"yes to countinues\"\n\"No\" to cancel");
+                String confirm = "";
+                while (!confirm.equals("yes") && !confirm.equals("no")) {
+                    System.out.println("You must select \"Yes or No\"");
+                    System.out.println("Select \"Yes or No\"");
+                    confirm = scanner.nextLine();
+                }
+                InputData.confirm(confirm, () -> {
+                    cvsInputAndOutput.writeFileTeacher(TEACHER_PATH, teacherList, false);
+                    System.out.println("Teacher updated successfully.");
+                    readTeacher();
+                }, () -> {
+                    System.out.println("Teacher not updated successfully.");
+                    readTeacher();
+                });
             }
         }
         System.out.println("Teacher ID not found.");
@@ -128,14 +140,26 @@ public class TeacherService {
         }
 
         if (found) {
-            cvsInputAndOutput.writeFileTeacher(TEACHER_PATH, teacherList, false);
-            System.out.println("Teacher deleted successfully.");
+            String confirm="";
+            while (!confirm.equals("yes") && !confirm.equals("no")) {
+                System.out.println("You must select \"Yes or No\"");
+                System.out.println("Select \"Yes or No\"");
+                confirm = scanner.nextLine();
+            }
+            InputData.confirm(confirm, () -> {
+                cvsInputAndOutput.writeFileTeacher(TEACHER_PATH, teacherList, false);
+                System.out.println("Teacher updated successfully.");
+                readTeacher();
+            }, () -> {
+                System.out.println("Teacher not updated successfully.");
+                readTeacher();
+            });
         } else {
             System.out.println("Teacher ID not found.");
         }
     }
 
-    public void findTeacher() {
+    public  void  findTeacher() {
         if (!validationUtils.isFileExists(TEACHER_PATH)) {
             return;
         }

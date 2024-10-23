@@ -58,8 +58,19 @@ public class ClassroomService {
             for (Classroom classroom : classrooms) {
                 if (classroom.getNameClass().equals(className)) {
                     classroom.setStudents(classStudentList);
-                    cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
-                    System.out.println("Changed Information of Student");
+                    String confirm="";
+                    while (!confirm.equals("yes") && !confirm.equals("no")) {
+                        System.out.println("You must select \"Yes or No\"");
+                        System.out.println("Select \"Yes or No\"");
+                        confirm = sc.nextLine();
+                    }
+                    InputData.confirm(confirm,()->{
+                        cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
+                        System.out.println("Changed Information of Student");
+                        readClassroom();
+                    },()->{
+                        System.out.println("You canceled edit");
+                    });
                     break;
                 }
             }
@@ -70,12 +81,23 @@ public class ClassroomService {
             for (Classroom classroom :classrooms ) {
                 if (classroom.getNameClass().equals(className)) {
                     classroom.setTeacher(homeroomTeacher);
-                    cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
-                    System.out.println("Changed Information of teacher");
+                    String confirm="";
+                    while (!confirm.equals("yes") && !confirm.equals("no")) {
+                        System.out.println("You must select \"Yes or No\"");
+                        System.out.println("Select \"Yes or No\"");
+                        confirm = sc.nextLine();
+                    }
+                    InputData.confirm(confirm, () -> {
+                                cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
+                                System.out.println("Changed Information of teacher");
+                                readClassroom();
+                            },
+                            () -> {
+                                System.out.println("You cancelled the update.");
+                            });
                 }
             }
         }
-        readClassroom();
     }
     public void changeSizeOfClass() {
         List<Classroom> classrooms = cvsInputAndOutput.readClassData(CLASSROOM_PATH);
@@ -118,8 +140,7 @@ public class ClassroomService {
             for (Classroom classroom : classrooms) {
                 if (classroom.getNameClass().equals(className)) {
                     classroom.setStudents(studentInClass);
-                    found = true;
-                    break;
+                    found=true;
                 }
             }
             if (!found) {
@@ -135,12 +156,10 @@ public class ClassroomService {
                     students.remove(student);
                     cvsInputAndOutput.writeFileStudent(STUDENT_PATH, students, false);
                     found = true;
-                    break;
                 }
             }
             if (!found) {
                 System.out.println("Invalid Class please check again");
-                return;
             }
             List<Student> studentInClass=filterList(students,className);
             for (Classroom classroom : classrooms) {
@@ -150,9 +169,20 @@ public class ClassroomService {
                 }
             }
         }
-        cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
-        System.out.println("Changed student List");
-        readClassroom();
+        String confirm="";
+        while (!confirm.equals("yes") && !confirm.equals("no")) {
+            System.out.println("You must select \"Yes or No\"");
+            System.out.println("Select \"Yes or No\"");
+            confirm = sc.nextLine();
+        }
+        InputData.confirm(confirm,()->{
+            cvsInputAndOutput.writeClassData(CLASSROOM_PATH, classrooms, false);
+            System.out.println("Changed student List");
+            readClassroom();
+        },()->{
+            System.out.println("You cancelled the change.");
+        });
+
     }
     public void findClass(){
         String className = inputData.getInput("Enter Class where you wana find information: ");
@@ -168,8 +198,8 @@ public class ClassroomService {
         for (Classroom classInfo : classroom) {
             System.out.println("Class Name: " + classInfo.getNameClass());
             System.out.println("Homeroom Teacher: " + classInfo.getTeacher().getName());
-            System.out.println("Size: " + classInfo.getInformSize());
-            System.out.println("Classification: " + classInfo.getClassificationInform());
+            System.out.println("Size: " + classInfo.getStudents().size());
+            System.out.println("Classification: " + classInfo.createClassification(classInfo.getStudents()));
             System.out.println("Students:");
             for (Student student : classInfo.getStudents()) {
                 System.out.println(student.toString());

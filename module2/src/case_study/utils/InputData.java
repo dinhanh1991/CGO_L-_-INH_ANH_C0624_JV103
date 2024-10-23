@@ -8,4 +8,11 @@ public class InputData {
         System.out.println(prompt);
         return scanner.nextLine();
     }
+    public static void confirm(String confirm,Runnable action,Runnable cancel) {
+        if(confirm.toLowerCase().equals("yes")) {
+            action.run();
+        }else if(confirm.toLowerCase().equals("no")) {
+            cancel.run();
+        }
+    }
 }
