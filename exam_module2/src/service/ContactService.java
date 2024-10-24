@@ -16,7 +16,15 @@ public class ContactService {
 
     public void displayContactList() {
         for (Contact contact : contactList) {
-            System.out.println(contact.toString());
+                System.out.println("Phone Number:"+contact.getPhoneNumber());
+            System.out.println("Group:"+contact.getGroup());
+                System.out.println("Name:"+contact.getName());
+            System.out.println("Gender:"+contact.getGender());
+            System.out.println("Address:"+contact.getAddress());
+            scanner.nextLine();
+            System.out.println("Email Address:"+contact.getEmailAddress());
+            scanner.nextLine();
+            System.out.println("Birth Date:"+contact.getBirthDate());
         }
     }
 
