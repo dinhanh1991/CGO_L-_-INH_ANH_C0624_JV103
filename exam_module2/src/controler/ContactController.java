@@ -50,7 +50,6 @@ public class ContactController {
                                                 break;
                                                 default:
                                                     System.out.println("Invalid choice");
-
             }
         }while(choice!=8);
     }

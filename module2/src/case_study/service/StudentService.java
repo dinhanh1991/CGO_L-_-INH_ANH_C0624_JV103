@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StudentService {
-    private final String STUDENT_PATH = "module2/src/case_study/cvs_file/student";
-    private final String CLASS_PATH = "module2/src/case_study/cvs_file/classroom";
+    private final String STUDENT_PATH = "cvs_file/student";
+    private final String CLASS_PATH = "cvs_file/classroom";
     private final CvsInputAndOutput cvsInputAndOutput = new CvsInputAndOutput();
     private final ValidationUtils validationUtils = new ValidationUtils();
     private final InputData inputData = new InputData();

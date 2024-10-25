@@ -13,9 +13,9 @@ import java.util.Scanner;
 
 
 public class ClassroomService {
-    private final String CLASSROOM_PATH = "module2/src/case_study/cvs_file/classroom";
-    private final String TEACHER_PATH = "module2/src/case_study/cvs_file/teachers";
-    private final String STUDENT_PATH = "module2/src/case_study/cvs_file/student";
+    private final String CLASSROOM_PATH = "cvs_file/classroom";
+    private final String TEACHER_PATH = "cvs_file/teachers";
+    private final String STUDENT_PATH = "cvs_file/student";
     private final CvsInputAndOutput cvsInputAndOutput = new CvsInputAndOutput();
     private final ValidationUtils validationUtils = new ValidationUtils();
     private final InputData inputData = new InputData();

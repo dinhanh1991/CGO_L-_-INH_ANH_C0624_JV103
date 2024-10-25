@@ -71,6 +71,7 @@ public class ContactService {
                 contact.setGroup(groupContact);
             }
         }
+        saveFileToDataFile();
         System.out.println("Contact List Updated");
     }
 
@@ -81,11 +82,16 @@ public class ContactService {
             System.out.println("Enter valid phone number");
             phoneNumber = scanner.nextLine();
         }
+        boolean found = false;
         for (Contact contact : contactList) {
-            if (!contact.getPhoneNumber().equals(phoneNumber)) {
-                System.out.println("Phone number does not match");
-                return;
+            if (contact.getPhoneNumber().equals(phoneNumber)) {
+                found = true;
+                break;
             }
+        }
+        if (!found) {
+            System.out.println("Contact does not exist");
+            return;
         }
         for (Contact contact : contactList) {
             if (contact.getPhoneNumber().equals(phoneNumber)) {
@@ -101,6 +107,7 @@ public class ContactService {
                 break;
             }
         }
+        saveFileToDataFile();
         System.out.println("Contact List deleted");
     }
 
@@ -133,6 +140,7 @@ public class ContactService {
         }
         Contact contact = new Contact(phoneNumber, groupContact, name, gender, address, email, birthDate);
         contactList.add(contact);
+        saveFileToDataFile();
         System.out.println("Contact added");
     }
 
@@ -194,7 +202,7 @@ public class ContactService {
             confirm = scanner.nextLine();
         }
         if (confirm.toLowerCase().equals("yes")) {
-            cvsInputData.writeFileContact(CONTACT_PATH,contactList,true);
+            cvsInputData.writeFileContact(CONTACT_PATH,contactList,false);
         } else if (confirm.toLowerCase().equals("no")) {
             System.out.println("Cancel load file");
         }
