@@ -35,11 +35,17 @@ public class ContactService {
             System.out.println("Enter valid phone number");
             phoneNumber = scanner.nextLine();
         }
+        boolean found = false;
         for (Contact contact : contactList) {
-            if (!contact.getPhoneNumber().equals(phoneNumber)) {
+            if (contact.getPhoneNumber().equals(phoneNumber)) {
                 System.out.println("Phone number does not match");
-                return;
+                found = true;
+                break;
             }
+        }
+        if (!found) {
+            System.out.println("Phone number does not match");
+            return;
         }
         System.out.println("Enter group contact");
         String groupContact = scanner.nextLine();
